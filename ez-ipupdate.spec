@@ -1,6 +1,6 @@
 %define name ez-ipupdate
 %define version 3.0.11b8
-%define release %mkrel 6
+%define release %mkrel 7
 
 Name: %{name}
 Summary: Client for Dynamic DNS Services
@@ -8,6 +8,8 @@ Version: %{version}
 Release: %{release}
 Source: %{name}-%{version}.tar.bz2
 Source1: ez-ipupdate.init
+# add missing include for 64 bit (bug #35001)
+Patch: ez-ipupdate-3.0.11b8-64-bit.patch
 Group: Networking/Other
 URL: http://ez-ipupdate.com/
 BuildRoot: %{_tmppath}/%{name}-%{version}-buildroot
@@ -39,6 +41,7 @@ You can find some example in /usr/share/doc/%{name}-%{version}
 
 %prep
 %setup -q
+%patch -p1
 
 %build
 %configure
