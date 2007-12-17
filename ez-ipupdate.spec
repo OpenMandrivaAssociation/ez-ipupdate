@@ -12,7 +12,6 @@ Source1: ez-ipupdate.init
 Patch: ez-ipupdate-3.0.11b8-64-bit.patch
 Group: Networking/Other
 URL: http://ez-ipupdate.com/
-BuildRoot: %{_tmppath}/%{name}-%{version}-buildroot
 License: GPL
 Requires(post): rpm-helper
 Requires(postun): rpm-helper
