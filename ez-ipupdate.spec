@@ -1,15 +1,27 @@
 %define name ez-ipupdate
 %define version 3.0.11b8
-%define release %mkrel 8
+%define release %mkrel 9
 
 Name: %{name}
 Summary: Client for Dynamic DNS Services
 Version: %{version}
 Release: %{release}
-Source: %{name}-%{version}.tar.bz2
+Source0: %{name}-%{version}.tar.bz2
 Source1: ez-ipupdate.init
 # add missing include for 64 bit (bug #35001)
-Patch: ez-ipupdate-3.0.11b8-64-bit.patch
+Patch0: ez-ipupdate-3.0.11b8-64-bit.patch
+Patch1: 000_missing_headers.diff
+Patch2: 001_automake_syntax.diff
+Patch3: 002_am_maintainer_mode.diff
+Patch4: 010_rebootstrap.diff
+Patch5: 100_portability.diff
+Patch6: 101_syslog_crashes.diff
+Patch7: 102_misc_crashes.diff
+Patch8: 103_protocol.diff
+Patch9: 104_misc_crashes.diff
+Patch10: 150_cosmetic.diff
+Patch11: 200_default_config.diff
+Patch12: 201_upstream_changelog.diff
 Group: Networking/Other
 URL: http://ez-ipupdate.com/
 BuildRoot: %{_tmppath}/%{name}-%{version}-buildroot
@@ -40,8 +52,21 @@ Don't forget to create your own config file ( in /etc/ez-ipupdate.conf )
 You can find some example in /usr/share/doc/%{name}-%{version}
 
 %prep
+
 %setup -q
-%patch -p1
+%patch0 -p1
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
+%patch4 -p1
+%patch5 -p1
+%patch6 -p1
+%patch7 -p1
+%patch8 -p1
+%patch9 -p0
+%patch10 -p1
+%patch11 -p1
+%patch12 -p1
 
 %build
 %configure
