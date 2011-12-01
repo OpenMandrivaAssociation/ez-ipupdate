@@ -74,12 +74,12 @@ You can find some example in /usr/share/doc/%{name}-%{version}
 %make 
 
 %install
-rm -rf $RPM_BUILD_ROOT 
+rm -rf %{buildroot} 
 
 chmod 644 *.conf
 %makeinstall_std
 perl -pi -e "s|\/usr\/local\/bin|\/usr\/bin|" *.conf
-install -D -m 755 %{SOURCE1} $RPM_BUILD_ROOT/%{_initrddir}/%{name}
+install -D -m 755 %{SOURCE1} %{buildroot}/%{_initrddir}/%{name}
 
 cat > README.urpmi << EOF
 To configure the ez-ipupdate deamon, edit and set the corrects
@@ -88,7 +88,7 @@ Then you can start the deamon with service ez-ipupdate start
 EOF
 
 %clean
-rm -rf $RPM_BUILD_ROOT 
+rm -rf %{buildroot} 
 
 %files 
 %defattr(-,root,root)
