@@ -1,6 +1,6 @@
 %define name ez-ipupdate
 %define version 3.0.11b8
-%define release %mkrel 13
+%define release %mkrel 14
 
 Name: %{name}
 Summary: Client for Dynamic DNS Services
