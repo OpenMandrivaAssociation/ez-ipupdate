@@ -1,0 +1,10 @@
+--- ez-ipupdate-3.0.11b8/ez-ipupdate.c~	2002-03-12 00:31:47.000000000 +0100
++++ ez-ipupdate-3.0.11b8/ez-ipupdate.c	2007-10-23 20:48:59.000000000 +0200
+@@ -178,6 +178,7 @@
+ #include <conf_file.h>
+ #include <cache_file.h>
+ #include <pid_file.h>
++#include <time.h>
+ 
+ #if !defined(__GNUC__) && !defined(HAVE_SNPRINTF)
+ #error "get gcc, fix this code, or find yourself a snprintf!"
