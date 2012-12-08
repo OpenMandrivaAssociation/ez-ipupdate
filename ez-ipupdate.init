@@ -1,0 +1,101 @@
+#!/bin/bash
+#
+# Laurent Culioli <laurent@mandrakesoft.com>
+# some idea stollen from the ez-ipudate website (  mdepot@mediaone.net )
+# Startup script for ez-ipudate  $Revision: 1.0 $
+#
+# chkconfig: 345 55 45
+#  
+# processname: ez-ipupdate
+# description: check and update your IP to dynamic DNS Server
+# pidfile: /var/run/ez-ipudpate.pid
+# config: /etc/ez-ipupdate.conf
+### BEGIN INIT INFO
+# Provides: ez-ipupdate
+# Required-Start: $network
+# Required-Stop: $network
+# Default-Start: 3 4 5
+# Short-Description: check and update your IP to dynamic DNS Server
+# Description: ez-ipupdate is a program for updating your IP address with the
+#              dynamic DNS server
+### END INIT INFO
+
+# Make sure relevant files exist
+[ -x /usr/bin/ez-ipupdate ] || exit 0
+[ -f /etc/ez-ipupdate.conf ] || exit 0
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+# Source networking configuration.
+. /etc/sysconfig/network
+
+# Check that networking is up.
+[ ${NETWORKING} = "no" ] && exit 0
+
+processname="ez-ipupdate"
+servicename="ez-ipupdate"
+ez_config=/etc/ez-ipupdate.conf
+ez_cache=`grep -E '^[[:space:]]*cache-file' $ez_config |  cut -d "=" -f2 `
+ez_subsys="/var/lock/subsys/ez-ipupdate"
+
+RETVAL=0
+
+function ez_start() {
+	gprintf "Starting %s daemon: " "$servicename"
+	daemon --user=nobody $servicename $processname -d -c $ez_config
+	RETVAL=$?
+	echo
+	[ $RETVAL -eq 0 ] && touch $ez_subsys && echo `/sbin/pidof $processname` > /var/run/$servicename.pid
+}
+
+function ez_stop() {
+        gprintf "Stopping %s daemon: " "$servicename"
+
+	killproc $servicename
+	RETVAL=$?
+	echo
+	if [ $RETVAL -eq 0 ]; then
+		rm -f $ez_subsys
+		rm -f /var/run/noip.pid
+	fi
+}
+
+function ez_status() {
+	status $processname
+	LAST_IP=`cat $ez_cache | cut -d "," -f2`
+	gprintf "last IP update : %s\n" "$LAST_IP"
+	RETVAL=$?
+}
+
+# See how we were called.
+case "$1" in
+    start)
+	ez_start
+	;;
+    stop)
+	ez_stop
+	;;
+    restart|reload)
+	ez_stop
+	sleep 1
+	ez_start
+	;;
+    condrestart)
+	if [ -f $ez_subsys ]; then
+	    ez_stop
+	    sleep 1
+	    ez_start
+	fi
+	;;
+    status)
+	ez_status
+	;;
+    *)
+	gprintf "Usage: %s:\n" "$(basename $0) {start|stop|restart|status|condrestart}}"
+	exit 1
+	;;
+esac
+
+exit 0
+

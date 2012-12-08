@@ -74,12 +74,12 @@ You can find some example in /usr/share/doc/%{name}-%{version}
 %make 
 
 %install
-rm -rf %{buildroot} 
+rm -rf $RPM_BUILD_ROOT 
 
 chmod 644 *.conf
 %makeinstall_std
 perl -pi -e "s|\/usr\/local\/bin|\/usr\/bin|" *.conf
-install -D -m 755 %{SOURCE1} %{buildroot}/%{_initrddir}/%{name}
+install -D -m 755 %{SOURCE1} $RPM_BUILD_ROOT/%{_initrddir}/%{name}
 
 cat > README.urpmi << EOF
 To configure the ez-ipupdate deamon, edit and set the corrects
@@ -88,7 +88,7 @@ Then you can start the deamon with service ez-ipupdate start
 EOF
 
 %clean
-rm -rf %{buildroot} 
+rm -rf $RPM_BUILD_ROOT 
 
 %files 
 %defattr(-,root,root)
@@ -117,3 +117,121 @@ fi
 
 %preun
 %_preun_service ez-ipupdate
+
+
+%changelog
+* Tue May 03 2011 Oden Eriksson <oeriksson@mandriva.com> 3.0.11b8-13mdv2011.0
++ Revision: 664173
+- mass rebuild
+
+* Thu Dec 02 2010 Oden Eriksson <oeriksson@mandriva.com> 3.0.11b8-12mdv2011.0
++ Revision: 605116
+- rebuild
+
+* Mon Mar 15 2010 Oden Eriksson <oeriksson@mandriva.com> 3.0.11b8-11mdv2010.1
++ Revision: 520106
+- rebuilt for 2010.1
+
+* Wed Sep 02 2009 Christophe Fergeau <cfergeau@mandriva.com> 3.0.11b8-10mdv2010.0
++ Revision: 424396
+- rebuild
+
+* Sat Dec 20 2008 Oden Eriksson <oeriksson@mandriva.com> 3.0.11b8-9mdv2009.1
++ Revision: 316635
+- added a bunch of patches from debian
+
+* Tue Jun 17 2008 Thierry Vignaud <tv@mandriva.org> 3.0.11b8-8mdv2009.0
++ Revision: 220739
+- rebuild
+- kill re-definition of %%buildroot on Pixel's request
+
+  + Olivier Blin <oblin@mandriva.com>
+    - restore BuildRoot
+
+* Tue Oct 23 2007 GÃ¶tz Waschk <waschk@mandriva.org> 3.0.11b8-7mdv2008.1
++ Revision: 101612
+- add missing header to fix crash on x86_64 (bug #35001)
+
+* Mon May 14 2007 GÃ¶tz Waschk <waschk@mandriva.org> 3.0.11b8-6mdv2008.0
++ Revision: 26634
+- Import ez-ipupdate
+
+
+
+* Mon May 14 2007 Götz Waschk <waschk@mandriva.org> 3.0.11b8-6mdv2008.0
+- fix permissions
+- create config file owned by nobody (bug #29258)
+
+* Mon Aug 28 2006 Götz Waschk <waschk@mandriva.org> 3.0.11b8-6mdv2007.0
+- pinit
+- new url
+
+* Sun May 14 2006 Stefan van der Eijk <stefan@eijk.nu> 3.0.11b8-5mdk
+- rebuild for sparc
+
+* Fri Sep 09 2005 Raphaël Gertz <rapsys@free.fr> 3.0.11b8-4mdk
+- run ez-ipupdate as nobody instead of root
+- fix startup script
+- make rpmlint happy
+- add README.urpmi and default config file
+
+* Wed Mar 09 2005 Laurent Culioli <laurent@zarb.org> 3.0.11b8-3mdk
+- rebuild
+- make rpmlint more happy
+
+* Mon Nov 17 2003 Vincent Danen <vdanen@mandrakesoft.com> 3.0.11b8-2mdk
+- use /var/cache for the cache file rather than /tmp in example configs
+
+* Sun May 11 2003 Laurent Culioli <laurent@pschit.net> 3.0.11b8-1mdk
+- 3.0.11b8
+- drop patch0 ( merged upstream )
+
+* Fri Feb 14 2003 Gwenole Beauchesne <gbeauchesne@mandrakesoft.com> 3.0.11b7-3mdk
+- Patch0: don't assume errno to be a global variable.
+
+* Tue Aug 13 2002 Laurent Culioli <laurent@pschit.net> 3.0.11b7-2mdk
+- update init
+
+* Tue Jun 18 2002 Laurent Culioli <laurent@mandrakesoft.com> 3.0.11b7-1mdk
+- 3.0.11b7
+
+* Tue Feb 26 2002 Laurent Culioli <laurent@mandrakesoft.com> 3.0.11b6-2mdk
+- fix init
+
+* Mon Feb 25 2002 Laurent Culioli <laurent@mandrakesoft.com> 3.0.11b6-1mdk
+- add init-script
+- 3.0.11b6
+
+* Fri Jan 11 2002 Frederic Crozat <fcrozat@mandrakesoft.com> 3.0.11b5-2mdk
+- Clean specfile
+- Fix config files
+
+* Mon Aug 27 2001 Lenny Cartier <lenny@mandrakesoft.com> 3.0.11b5-1mdk
+- updated to 3.0.11b5
+
+* Fri Jul 06 2001 Lenny Cartier <lenny@mandrakesoft.com> 3.0.11b-2mdk
+- fix description, thx to Mordy Ovits
+
+* Fri Jul 06 2001 Lenny Cartier <lenny@mandrakesoft.com> 3.0.11b-1mdk
+- updated to 3.011b
+
+* Tue Jan 09 2001 Lenny Cartier <lenny@mandrakesoft.com> 3.0.4-1mdk
+- updated to 3.0.4
+
+* Tue Dec 12 2000 Lenny Cartier <lenny@mandrakesoft.com> 3.0.1-1mdk
+- updated to 3.0.1
+- updated list of supported services
+
+* Sun Nov 12 2000 Lenny Cartier <lenny@mandrakesoft.com> 2.9.5-1mdk
+- updated to 2.9.5
+- provide all configuration example files
+
+* Wed Aug 30 2000 Lenny Cartier <lenny@mandrakesoft.com> 2.8.1-1mdk
+- v2.8.1
+- BM
+
+* Tue Jul 04 2000 Lenny Cartier <lenny@mandrakesoft.com> 2.4.2-2mdk
+- rebuild
+
+* Wed Jun 21 2000 Lenny Cartier <lenny@mandrakesoft.com> 2.4.2-1mdk
+- new in contribs
