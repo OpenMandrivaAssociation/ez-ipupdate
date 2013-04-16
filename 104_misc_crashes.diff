@@ -1,5 +1,5 @@
 --- ../ez-ipupdate-3.0.11b8/cache_file.c        2003-04-17 13:31:04.000000000 -0400
-+++ cache_file.c        2005-08-18 14:47:20.417859984 -0400
++++ ./cache_file.c        2005-08-18 14:47:20.417859984 -0400
 @@ -133,7 +133,9 @@ int read_cache_file(char *file, time_t *
      ipstr = p;
  
@@ -12,7 +12,7 @@
    else
    {
 --- ../ez-ipupdate-3.0.11b8/ez-ipupdate.c       2006-04-09 15:24:03.000000000 -0400
-+++ ez-ipupdate.c       2005-08-18 14:44:31.510537800 -0400
++++ ./ez-ipupdate.c       2005-08-18 14:44:31.510537800 -0400
 @@ -1615,7 +1615,13 @@ int get_if_addr(int sock, char *name, st
    struct ifreq ifr;
  
