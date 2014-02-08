@@ -1,7 +1,7 @@
 Summary:	Client for Dynamic DNS Services
 Name:		ez-ipupdate
 Version:	3.0.11b8
-Release:	14
+Release:	15
 Group:		Networking/Other
 License:	GPLv2
 Url:		http://ez-ipupdate.com/
