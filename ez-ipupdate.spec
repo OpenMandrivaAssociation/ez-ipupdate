@@ -1,7 +1,7 @@
 Name: ez-ipupdate
 Summary: Client for Dynamic DNS Services
 Version: 3.0.11b8
-Release: 17
+Release: 18
 Source0: %{name}-%{version}.tar.bz2
 Source1: %{name}.service
 # add missing include for 64 bit (bug #35001)
