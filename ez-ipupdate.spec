@@ -19,7 +19,7 @@ Patch10: 150_cosmetic.diff
 Patch11: 200_default_config.diff
 Patch12: 201_upstream_changelog.diff
 Group: Networking/Other
-URL: http://ez-ipupdate.com/
+URL: https://ez-ipupdate.com/
 License: GPL
 Requires(post): rpm-helper
 Requires(postun): rpm-helper
