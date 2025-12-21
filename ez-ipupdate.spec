@@ -27,6 +27,11 @@ Requires(post): systemd-units
 Requires(preun): systemd-units
 Requires(postun): systemd-units
 
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 %description
 ez-ipupdate is a small utility for updating your host name for any of the
 dynamic DNS service offered at: 
